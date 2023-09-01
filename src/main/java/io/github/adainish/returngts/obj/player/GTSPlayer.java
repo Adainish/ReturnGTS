@@ -51,7 +51,7 @@ public class GTSPlayer
             return;
         if (msg.isEmpty())
             return;
-        Util.send(uuid, msg);
+        Util.send(this.uuid, msg);
     }
 
     public boolean isOnline()

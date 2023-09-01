@@ -200,10 +200,6 @@ public class ReturnGTS {
     }
     public void save()
     {
-        if (config != null) {
-            log.warn("Saving config data");
-            Config.saveConfig(config);
-        } else log.error("Failed to save the regular config as it was null.. This is normal when the server boots up.");
         if (gts != null)
         {
             log.warn("Saving GTS data");

@@ -28,7 +28,14 @@ public class Command
                         return 1;
                     }
                     return 1;
-                })
+                }) .then(Commands.literal("reload")
+                        .requires(cs -> PermissionUtil.checkPermAsPlayer(cs, PermissionWrapper.adminPermission))
+                        .executes(cc -> {
+                            ReturnGTS.instance.save();
+                            ReturnGTS.instance.reload();
+                            return 1;
+                        })
+                )
                 ;
     }
 }

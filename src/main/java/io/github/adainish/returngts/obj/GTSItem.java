@@ -115,16 +115,20 @@ public class GTSItem {
     }
 
     public void sendToSellerStorage() {
-        GTSPlayer gtsPlayer = PlayerStorage.getPlayer(this.seller);
-        if (gtsPlayer != null) {
-            if (this.itemStack != null && !this.itemStack.isEmpty())
-                gtsPlayer.retrievalStorage.itemStacks.add(this.itemStack.copy());
-            gtsPlayer.sendMessage("&4One of your Item Sales expired and was sent to your storage.");
-            if (this.pokemon != null) {
-                gtsPlayer.retrievalStorage.pokemon.add(this.pokemon);
-                gtsPlayer.sendMessage("&4One of your Pokemon Sales expired and was sent to your storage.");
+        if (this.seller != null) {
+            GTSPlayer gtsPlayer = PlayerStorage.getPlayer(this.seller);
+            if (gtsPlayer != null) {
+                if (this.itemStack != null && !this.itemStack.isEmpty())
+                    gtsPlayer.retrievalStorage.itemStacks.add(this.itemStack.copy());
+                if (gtsPlayer.isOnline())
+                    gtsPlayer.sendMessage("&4One of your Item Sales expired and was sent to your storage.");
+                if (this.pokemon != null) {
+                    gtsPlayer.retrievalStorage.pokemon.add(this.pokemon);
+                    if (gtsPlayer.isOnline())
+                        gtsPlayer.sendMessage("&4One of your Pokemon Sales expired and was sent to your storage.");
+                }
+                gtsPlayer.updateCache();
             }
-            gtsPlayer.updateCache();
         }
     }
 

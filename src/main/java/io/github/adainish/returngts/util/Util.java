@@ -299,6 +299,8 @@ public class Util
     }
 
     public static void send(UUID uuid, String message) {
+        if (uuid == null)
+            return;
         getPlayer(uuid).sendMessage(new StringTextComponent(((TextUtil.getMessagePrefix()).getString() + message).replaceAll("&([0-9a-fk-or])", "\u00a7$1")), uuid);
     }
 
