@@ -68,6 +68,7 @@ public class GTS
         if (gtsItem.hasSold())
             return false;
 
+        EconomyUtil.giveBalance(gtsItem.seller, gtsItem.askingPrice);
         this.gtsItems.remove(gtsItem);
         gtsItem.buyer = gtsPlayer.uuid;
 
