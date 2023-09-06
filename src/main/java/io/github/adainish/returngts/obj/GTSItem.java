@@ -74,6 +74,11 @@ public class GTSItem {
         return s;
     }
 
+    public boolean isSellerOffline()
+    {
+        return ReturnGTS.getServer().getPlayerList().getPlayerByUUID(this.seller) == null;
+    }
+
     public GooeyButton menuButton(GTSPlayer player) {
         return GooeyButton.builder()
                 .title(Util.formattedString(displayTitle()))
@@ -132,13 +137,17 @@ public class GTSItem {
         }
     }
 
-    public void sendToBuyer() {
-        GTSPlayer seller = PlayerStorage.getPlayer(this.seller);
-        GTSPlayer buyer = PlayerStorage.getPlayer(this.buyer);
+    public String itemString() {
         String itemString = "";
         if (this.pokemon != null)
             itemString = this.pokemon.getSpecies().getName();
         else itemString = Util.getItemStackName(this.itemStack);
+        return itemString;
+    }
+    public void sendToBuyer() {
+        GTSPlayer seller = PlayerStorage.getPlayer(this.seller);
+        GTSPlayer buyer = PlayerStorage.getPlayer(this.buyer);
+        String itemString = itemString();
 
         if (buyer != null) {
             if (buyer.getOptionalServerPlayer().isPresent()) {

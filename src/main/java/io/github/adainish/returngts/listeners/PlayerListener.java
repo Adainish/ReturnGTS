@@ -1,5 +1,6 @@
 package io.github.adainish.returngts.listeners;
 
+import io.github.adainish.returngts.ReturnGTS;
 import io.github.adainish.returngts.obj.player.GTSPlayer;
 import io.github.adainish.returngts.storage.PlayerStorage;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -23,6 +24,10 @@ public class PlayerListener
             if (player != null) {
                 player.setUsername(serverPlayer.getName().getString());
                 player.updateCache();
+                if (ReturnGTS.gts != null)
+                {
+                    ReturnGTS.gts.updatePlayerOfflineSales(player);
+                }
             }
         }
     }

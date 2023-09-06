@@ -25,15 +25,12 @@ import io.github.adainish.returngts.util.Util;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class GTS
 {
     public List<GTSItem> gtsItems = new ArrayList<>();
-
+    public HashMap<UUID, OfflineSaleHandler> offlineSaleMap = new HashMap<>();
     public GTS()
     {
 
@@ -59,6 +56,17 @@ public class GTS
         gtsItems.removeAll(expired);
     }
 
+    public void updatePlayerOfflineSales(GTSPlayer player)
+    {
+        if (offlineSaleMap != null) {
+            if (offlineSaleMap.containsKey(player.uuid)) {
+                OfflineSaleHandler handler = offlineSaleMap.get(player.uuid);
+                handler.handout();
+                offlineSaleMap.put(player.uuid, new OfflineSaleHandler());
+            }
+        }
+    }
+
     public boolean buyItem(GTSPlayer gtsPlayer, GTSItem gtsItem)
     {
         if (gtsItems.isEmpty())
@@ -68,7 +76,20 @@ public class GTS
         if (gtsItem.hasSold())
             return false;
 
-        EconomyUtil.giveBalance(gtsItem.seller, gtsItem.askingPrice);
+        if (gtsItem.isSellerOffline())
+        {
+            if (this.offlineSaleMap == null)
+                this.offlineSaleMap = new HashMap<>();
+            OfflineSaleHandler offlineSaleHandler = null;
+            if (this.offlineSaleMap.containsKey(gtsItem.seller))
+            {
+                offlineSaleHandler = this.offlineSaleMap.get(gtsItem.seller);
+            } else offlineSaleHandler = new OfflineSaleHandler();
+            offlineSaleHandler.add(gtsItem);
+            this.offlineSaleMap.put(gtsItem.seller, offlineSaleHandler);
+        } else {
+            EconomyUtil.giveBalance(gtsItem.seller, gtsItem.askingPrice);
+        }
         this.gtsItems.remove(gtsItem);
         gtsItem.buyer = gtsPlayer.uuid;
 
