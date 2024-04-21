@@ -19,7 +19,7 @@ public class ItemUpdater
 
     public void updatePrice(GTSPlayer player) {
         ReturnGTS.gts.gtsItems.remove(this.gtsItem);
-        ReturnGTS.gts.announce("&aThe price for the item %item% sold by %seller% was updated to %newprice%"
+        ReturnGTS.gts.announce("&aThe price for the item %item% sold by %seller% was updated to $%newprice%"
                 .replace("%item%", gtsItem.displayTitle())
                 .replace("%seller%", player.userName)
                 .replace("%newprice%", String.valueOf(this.newPrice)));
