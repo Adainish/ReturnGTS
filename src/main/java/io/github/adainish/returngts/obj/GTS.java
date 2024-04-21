@@ -67,6 +67,17 @@ public class GTS
         }
     }
 
+    public void announce(String msg)
+    {
+        ReturnGTS.getServer().getPlayerList().getPlayers().forEach(serverPlayerEntity -> {
+            GTSPlayer player = PlayerStorage.getPlayer(serverPlayerEntity.getUniqueID());
+            if (player != null)
+            {
+                player.sendMessage(msg);
+            }
+        });
+    }
+
     public boolean buyItem(GTSPlayer gtsPlayer, GTSItem gtsItem)
     {
         if (gtsItems.isEmpty())
@@ -141,6 +152,7 @@ public class GTS
                     player.sendMessage("Removed your listing!");
                     item.sendToSellerStorage();
                     ReturnGTS.gts.gtsItems.remove(item);
+                    UIManager.openUIForcefully(b.getPlayer(), manageListingsPage(player));
                 })
                 .build();
 

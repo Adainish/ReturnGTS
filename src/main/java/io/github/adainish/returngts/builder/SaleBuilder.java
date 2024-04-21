@@ -165,7 +165,7 @@ public class SaleBuilder
 
     public LinkedPage selectItemPage(GTSPlayer player)
     {
-        ChestTemplate.Builder builder = Util.returnBasicTemplateBuilder();
+        ChestTemplate.Builder builder = Util.returnSizeableBasicTemplateBuilder(6);
 
 
         GooeyButton goBack = GooeyButton.builder().title(Util.formattedString("&4Go Back"))
@@ -320,6 +320,10 @@ public class SaleBuilder
                     player.saleBuilder = null;
                     player.updateCache();
                     player.sendMessage("&aWe've added your listing to the GTS!");
+                    ReturnGTS.gts.announce("&a%player% has listed a %item% for %price%!"
+                            .replace("%player%", player.getUsername())
+                            .replace("%item%", item.displayTitle())
+                            .replace("%price%", String.valueOf(item.askingPrice)));
                     ReturnGTS.gts.openGTSMenu(player);
                 })
                 .build();

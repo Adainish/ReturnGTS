@@ -233,6 +233,29 @@ public class Util
         return builder;
     }
 
+    public static ChestTemplate.Builder returnSizeableBasicTemplateBuilder(int rows) {
+        ChestTemplate.Builder builder = ChestTemplate.builder(rows);
+        builder.fill(filler());
+
+        PlaceholderButton placeHolderButton = new PlaceholderButton();
+        LinkedPageButton previous = LinkedPageButton.builder()
+                .display(new ItemStack(Items.SPECTRAL_ARROW))
+                .title(Util.formattedString("Previous Page"))
+                .linkType(LinkType.Previous)
+                .build();
+
+        LinkedPageButton next = LinkedPageButton.builder()
+                .display(new ItemStack(Items.SPECTRAL_ARROW))
+                .title(Util.formattedString("Next Page"))
+                .linkType(LinkType.Next)
+                .build();
+
+        builder.set(0, 3, previous)
+                .set(0, 5, next)
+                .rectangle(1, 1, 3, 7, placeHolderButton);
+        return builder;
+    }
+
     public static ChestTemplate.Builder returnBasicTemplateBuilder() {
         ChestTemplate.Builder builder = ChestTemplate.builder(5);
         builder.fill(filler());

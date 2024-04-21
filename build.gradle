@@ -13,7 +13,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 
 group = 'io.github.adainish'
-version = '1.0.1-SNAPSHOT'
+version = '1.0.2-SNAPSHOT'
 
 java {
     archivesBaseName = 'ReturnGTS'
@@ -135,7 +135,7 @@ dependencies {
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
     implementation('ca.landonjw:GooeyLibs:1.16.5-2.3.3-SNAPSHOT')
-    implementation 'reforged:server:9.1.6@Pixelmon-1.16.5-9.1.6-server.jar'
+    implementation 'reforged:server:9.1.11@Pixelmon-1.16.5-9.1.11-server.jar'
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency

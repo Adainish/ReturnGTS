@@ -17,9 +17,12 @@ public class ItemUpdater
         this.gtsItem = gtsItem;
     }
 
-    public void updatePrice(GTSPlayer player)
-    {
+    public void updatePrice(GTSPlayer player) {
         ReturnGTS.gts.gtsItems.remove(this.gtsItem);
+        ReturnGTS.gts.announce("&aThe price for the item %item% sold by %seller% was updated to %newprice%"
+                .replace("%item%", gtsItem.displayTitle())
+                .replace("%seller%", player.userName)
+                .replace("%newprice%", String.valueOf(this.newPrice)));
         this.gtsItem.askingPrice = newPrice;
         ReturnGTS.gts.gtsItems.add(this.gtsItem);
         player.sendMessage("&aThe price for your item was set to %newprice%".replace("%newprice%", String.valueOf(this.newPrice)));
